@@ -13,6 +13,7 @@ namespace IncohearentWebServer
     }
     public class GameHub : Hub
     {       
+        // Test push
         public async Task JoinLobby(User user)
         {          
             await Groups.AddToGroupAsync(Context.ConnectionId, user.PublicAddress);
