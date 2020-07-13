@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "mX5pyYp28WA7kDZjUqqcBD5odPHdI3tKZ1UYGodsPiivn8+EwYhOcehiWw3dDRgANYByAVlsntKHy24NwLOLhg==",
+  "dgSpecHash": "7BGUszMrGlW3ADserdghUO+023eIH6gKBN0Z5EYzc7+2BMEeOvLT3NSat7z5j19C3Ofp8E7R0LyTPBdhCKzecQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\PMF\\Desktop\\Projekt\\Server\\Server\\IncohearentWebServer\\IncohearentWebServer.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\PMF\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
   "logs": []
 }

@@ -8,8 +8,6 @@ C:\Users\PMF\Desktop\Projekt\Server\Server\IncohearentWebServer\bin\Debug\netcor
 C:\Users\PMF\Desktop\Projekt\Server\Server\IncohearentWebServer\bin\Debug\netcoreapp3.1\IncohearentWebServer.dll
 C:\Users\PMF\Desktop\Projekt\Server\Server\IncohearentWebServer\bin\Debug\netcoreapp3.1\IncohearentWebServer.pdb
 C:\Users\PMF\Desktop\Projekt\Server\Server\IncohearentWebServer\obj\Debug\netcoreapp3.1\IncohearentWebServer.csprojAssemblyReference.cache
-C:\Users\PMF\Desktop\Projekt\Server\Server\IncohearentWebServer\obj\Debug\netcoreapp3.1\IncohearentWebServer.csproj.CoreCompileInputs.cache
-C:\Users\PMF\Desktop\Projekt\Server\Server\IncohearentWebServer\obj\Debug\netcoreapp3.1\IncohearentWebServer.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\PMF\Desktop\Projekt\Server\Server\IncohearentWebServer\obj\Debug\netcoreapp3.1\IncohearentWebServer.AssemblyInfoInputs.cache
 C:\Users\PMF\Desktop\Projekt\Server\Server\IncohearentWebServer\obj\Debug\netcoreapp3.1\IncohearentWebServer.AssemblyInfo.cs
 C:\Users\PMF\Desktop\Projekt\Server\Server\IncohearentWebServer\obj\Debug\netcoreapp3.1\IncohearentWebServer.RazorTargetAssemblyInfo.cache
