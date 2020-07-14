@@ -17,6 +17,8 @@ namespace IncohearentWebServer
     public class GameHub : Hub
     {
         static RestApiService restApi { get; set; }
+
+        // TODO - ConnectionId mapping (rjesava problem i kod lobbyja i kod sessiona)
         public async Task JoinLobby(User user)
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, user.PublicAddress);
@@ -35,6 +37,11 @@ namespace IncohearentWebServer
 
             // Test za bilo koja 2 uredjaja
             //await Clients.All.SendAsync("LeaveLobby", user);
+        }
+
+        public async Task StartGame(User user)
+        {
+            await Clients.Groups(user.PublicAddress).SendAsync("StartGame", user);
         }
 
         public async Task GeneratePhraseList(User user, int p, int r)
