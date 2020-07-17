@@ -11,38 +11,23 @@ namespace IncohearentWebServer.Data
 {
     public class RestApiService
     {
-        public RestApiService() {
-            
-        }
-
-        public List<PhoneticPhrases> GeneratePhoneticEquivalents(int players, int rounds)
+        public PhoneticPhrases PhoneticPhrase { get; set; }
+        public RestApiService() { }
+        public PhoneticPhrases GeneratePhoneticEquivalents()
         {
-            Phrases[] phrases = GetPhrase(players, rounds).ToArray();
-            List<PhoneticPhrases> phoneticGenerated = new List<PhoneticPhrases>();
-
-            List<Task> tasks = new List<Task>();
-            for (int i = 0; i < phrases.Length; i++)
-            {
-                tasks.Add(Task.Factory.StartNew((object obj) =>
-                {
-                    string phrase = phrases[(int)obj].Phrase;
-                    phoneticGenerated.Add(GetPhoneticEquivalents(phrase));
-                },
-                i));
-            }
-            Task.WaitAll(tasks.ToArray<Task>());
-            return phoneticGenerated;
+            Phrases phrases = GetPhrase();
+            return GetPhoneticEquivalents(phrases.Phrase);
         }
 
         private PhoneticPhrases GetPhoneticEquivalents(string phrase)
         {
             List<PhoneticEquivalentPair> phoneticPairs = new List<PhoneticEquivalentPair>();
-
+            bool flag = false;
             string[] dissected = phrase.Split();
             foreach (string word in dissected)
             {
                 var request = (HttpWebRequest)WebRequest.Create("https://api.datamuse.com/words?sl=" + word);
-                request.UserAgent = "curl";          
+                request.UserAgent = "curl";
                 request.Method = "GET";
                 var responseData = "";
                 using (WebResponse response = request.GetResponse())
@@ -53,17 +38,26 @@ namespace IncohearentWebServer.Data
                     }
                 }
 
+                
                 PhoneticEquivalent[] phonEquiv = JsonConvert.DeserializeObject<List<PhoneticEquivalent>>(responseData).ToArray();
                 List<PhoneticEquivalent> highestScorePhonetics = new List<PhoneticEquivalent>();
 
                 foreach (PhoneticEquivalent pe in phonEquiv)
                     if (pe.Score > 92 && pe.Score <= 99) { highestScorePhonetics.Add(pe); }
 
+                if (highestScorePhonetics.Count == 0)
+                    flag = true;
+
                 phoneticPairs.Add(new PhoneticEquivalentPair(highestScorePhonetics, word));
             }
 
-            PhoneticPhrases phoneticPhrase = GenerateRandomPhonetic(phoneticPairs, phrase);
-            return phoneticPhrase;
+            if (flag)
+                return new PhoneticPhrases("", "");
+            else
+            {
+                PhoneticPhrases phoneticPhrase = GenerateRandomPhonetic(phoneticPairs, phrase);             
+                return phoneticPhrase;
+            }          
         }
 
         private PhoneticPhrases GenerateRandomPhonetic(List<PhoneticEquivalentPair> pep, string original)
@@ -81,10 +75,10 @@ namespace IncohearentWebServer.Data
             return new PhoneticPhrases(original, string.Join(" ", generated.ToArray()));
         }
 
-        private List<Phrases> GetPhrase(int players, int rounds)
+        private Phrases GetPhrase()
         {
             var request = (HttpWebRequest)WebRequest.Create("https://randomwordgenerator.com/json/phrases.json");
-            request.UserAgent = "curl";          
+            request.UserAgent = "curl";
             request.Method = "GET";
             var responseData = "";
             using (WebResponse response = request.GetResponse())
@@ -96,15 +90,11 @@ namespace IncohearentWebServer.Data
             }
 
             Phrases[] phraseList = JsonConvert.DeserializeObject<List<Phrases>>(responseData.Substring(8, responseData.Length - 9)).ToArray();
-            List<Phrases> randomPhrases = new List<Phrases>();
             Random rnd = new Random();
-            for (int i = 0; i < rounds * players; i++)
-            {
-                randomPhrases.Add(phraseList[rnd.Next(0, phraseList.Length)]);
-            }
-            
-            return randomPhrases;
-        }
+            Phrases randomPhrases = phraseList[rnd.Next(0, phraseList.Length)];
 
+            return randomPhrases;
+
+        }
     }
 }

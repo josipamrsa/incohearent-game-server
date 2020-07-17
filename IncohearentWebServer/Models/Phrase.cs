@@ -9,6 +9,7 @@ namespace IncohearentWebServer.Models
     {
         public string Phrase { get; set; }
         public string Description { get; set; }
+        public Phrases() { }
         public Phrases(string p, string d)
         {
             Phrase = p;
@@ -20,7 +21,7 @@ namespace IncohearentWebServer.Models
     {
         public string PhraseGenerated { get; set; }
         public string PhrasePhonetic { get; set; }
-
+        public PhoneticPhrases() { }
         public PhoneticPhrases(string gen, string phonetic)
         {
             PhraseGenerated = gen;
@@ -32,7 +33,7 @@ namespace IncohearentWebServer.Models
     {
         public List<PhoneticEquivalent> Equivalent { get; set; }
         public string OriginalWord { get; set; }
-
+        public PhoneticEquivalentPair() { }
         public PhoneticEquivalentPair(List<PhoneticEquivalent> pe, string ow)
         {
             Equivalent = pe;
@@ -45,7 +46,7 @@ namespace IncohearentWebServer.Models
         public string Word { get; set; }
         public int Score { get; set; }
         public int NumSyllables { get; set; }
-
+        public PhoneticEquivalent() { }
         public PhoneticEquivalent(string w, int s, int n)
         {
             Word = w;

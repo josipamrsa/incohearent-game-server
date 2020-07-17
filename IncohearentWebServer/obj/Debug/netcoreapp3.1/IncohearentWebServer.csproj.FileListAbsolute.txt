@@ -16,3 +16,7 @@ C:\Users\PMF\Desktop\Projekt\Server\Server\IncohearentWebServer\obj\Debug\netcor
 C:\Users\PMF\Desktop\Projekt\Server\Server\IncohearentWebServer\obj\Debug\netcoreapp3.1\IncohearentWebServer.dll
 C:\Users\PMF\Desktop\Projekt\Server\Server\IncohearentWebServer\obj\Debug\netcoreapp3.1\IncohearentWebServer.pdb
 C:\Users\PMF\Desktop\Projekt\Server\Server\IncohearentWebServer\obj\Debug\netcoreapp3.1\IncohearentWebServer.genruntimeconfig.cache
+C:\Users\PMF\Desktop\Projekt\Server\Server\IncohearentWebServer\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\PMF\Desktop\Projekt\Server\Server\IncohearentWebServer\obj\Debug\netcoreapp3.1\IncohearentWebServer.csproj.CoreCompileInputs.cache
+C:\Users\PMF\Desktop\Projekt\Server\Server\IncohearentWebServer\obj\Debug\netcoreapp3.1\IncohearentWebServer.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\PMF\Desktop\Projekt\Server\Server\IncohearentWebServer\obj\Debug\netcoreapp3.1\IncohearentWebServer.csproj.CopyComplete
