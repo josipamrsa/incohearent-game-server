@@ -52,7 +52,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\PMF\\.nuget\\packages\\": {},
+    "C:\\Users\\Jopa\\.nuget\\packages\\": {},
     "C:\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
@@ -61,14 +61,14 @@
       "projectUniqueName": "C:\\Users\\PMF\\Desktop\\Projekt\\Server\\Server\\IncohearentWebServer\\IncohearentWebServer.csproj",
       "projectName": "IncohearentWebServer",
       "projectPath": "C:\\Users\\PMF\\Desktop\\Projekt\\Server\\Server\\IncohearentWebServer\\IncohearentWebServer.csproj",
-      "packagesPath": "C:\\Users\\PMF\\.nuget\\packages\\",
+      "packagesPath": "C:\\Users\\Jopa\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\PMF\\Desktop\\Projekt\\Server\\Server\\IncohearentWebServer\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\PMF\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Jopa\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],

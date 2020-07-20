@@ -10,9 +10,30 @@ using System.Threading.Tasks;
 namespace IncohearentWebServer.Data
 {
     public class RestApiService
-    {
-        public PhoneticPhrases PhoneticPhrase { get; set; }
+    {           
         public RestApiService() { }
+
+        /*
+         
+             REST API SERVIS
+             -----------------------------------------------------------------------
+             Služi za dohvat i pretvorbu fraza sa serverske strane. Tijek izvođenja
+             je slijedeći: 
+
+                > Dohvat liste engleskih fraza preko HTTP requesta sa RandomWordGeneratora 
+                  (vraća cijelu JSON listu) te odabir nasumične fraze s tog popisa
+                > Generiranje svih fonetskih ekvivalenata preko Datamuse API-ja za svaku
+                  riječ u generiranoj frazi
+                > S obzirom da API vraća mjeru podudarnosti dvije riječi, onda se evaluira
+                  score za svaki dobiveni ekvivalent, te u listu mogućih kombinacija za 
+                  pojedinu riječ idu samo oni ekvivalenti sa scoreom između 92 i 99. Može
+                  se dogoditi da se fraza ne generira jer nijedan ekvivalent ne odgovara
+                  prethodnom uvjetu, pa tome služi zastavica, pomoću koje se onda šalje
+                  prazna fraza GameHubu, te on sa svoje strane šalje novi zahtjev REST API-ju
+                > Ako je sve u redu, za svaku riječ i njene fonetske ekvivalente se formira
+                  nasumična fraza od tih ekvivalenata
+        */
+
         public PhoneticPhrases GeneratePhoneticEquivalents()
         {
             Phrases phrases = GetPhrase();
@@ -21,6 +42,7 @@ namespace IncohearentWebServer.Data
 
         private PhoneticPhrases GetPhoneticEquivalents(string phrase)
         {
+            // Dohvaća i generira fonetske ekvivalente
             List<PhoneticEquivalentPair> phoneticPairs = new List<PhoneticEquivalentPair>();
             bool flag = false;
             string[] dissected = phrase.Split();
@@ -62,6 +84,7 @@ namespace IncohearentWebServer.Data
 
         private PhoneticPhrases GenerateRandomPhonetic(List<PhoneticEquivalentPair> pep, string original)
         {
+            // Formira ekvivalentne fraze
             Random rnd = new Random();
             List<string> generated = new List<string>();
 
@@ -77,6 +100,7 @@ namespace IncohearentWebServer.Data
 
         private Phrases GetPhrase()
         {
+            // Dohvaća listu frazi s API-ja
             var request = (HttpWebRequest)WebRequest.Create("https://randomwordgenerator.com/json/phrases.json");
             request.UserAgent = "curl";
             request.Method = "GET";
