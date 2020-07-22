@@ -19,13 +19,13 @@ namespace IncohearentWebServer
     {
         static RestApiService restApi { get; set; }
         public User GameMaster { get; set; }
-        public string GMConnectionId { get; set; }
+        public string GMConnectionId { get; set; }      
 
         public GameHub()
         {
-            restApi = new RestApiService();     // REST API za dohvat i transformaciju fraza
-            GameMaster = new User();            // GameMaster - tko je pokrenuo sesiju
-            GMConnectionId = "";                // ConnectionId od GameMastera
+            restApi = new RestApiService();             // REST API za dohvat i transformaciju fraza
+            GameMaster = new User();                    // GameMaster - tko je pokrenuo sesiju
+            GMConnectionId = "";                        // ConnectionId od GameMastera          
         }
 
         //----Lobby----//
@@ -61,10 +61,10 @@ namespace IncohearentWebServer
         }
 
         public async Task ConnectSession(User user)
-        {          
+        {
             // Spajaju se igrači iz istog Lobbyja u novi Session
 
-            await Groups.AddToGroupAsync(Context.ConnectionId, user.PublicAddress);
+            await Groups.AddToGroupAsync(Context.ConnectionId, user.PublicAddress);            
             await Clients.Groups(user.PublicAddress).SendAsync("ConnectSession", user);
         }
 
@@ -73,7 +73,7 @@ namespace IncohearentWebServer
             // Odspajanje igrača iz Sessiona - testirati
 
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, user.PublicAddress);
-            await Clients.Groups(user.PublicAddress).SendAsync("DisconnectSession", user);
+            await Clients.Groups(user.PublicAddress).SendAsync("DisconnectSession", user);            
         }
        
         //----Phrases----//
@@ -87,8 +87,8 @@ namespace IncohearentWebServer
             // Sudac (GameMaster) treba sam prosuditi tko je pobjednik u kojoj rundi (na osnovu
             // tko je točno odgovorio i bio najbrži). Ako se fraza nije generirala, onda se šalje
             // novi zahtjev prema REST API-ju
-
-            if (gm.UserId == user.UserId)
+         
+            if (gm.PrivateAddress == user.PrivateAddress)
             {
                 GameMaster = user;
                 GMConnectionId = Context.ConnectionId;
@@ -114,7 +114,6 @@ namespace IncohearentWebServer
         public override Task OnConnectedAsync()
         {
             // Provjerava spojene korisnike
-
             ConnectedUser.Id.Add(Context.ConnectionId);
             return base.OnConnectedAsync();
         }
@@ -122,7 +121,6 @@ namespace IncohearentWebServer
         public override Task OnDisconnectedAsync(Exception exception)
         {
             // Prati tko se odspojio
-
             ConnectedUser.Id.Remove(Context.ConnectionId);
             return base.OnDisconnectedAsync(exception);
         }
