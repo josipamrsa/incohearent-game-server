@@ -75,6 +75,11 @@ namespace IncohearentWebServer
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, user.PublicAddress);
             await Clients.Groups(user.PublicAddress).SendAsync("DisconnectSession", user);            
         }
+
+        public async Task DeclareWinner(User player)
+        {
+            await Clients.GroupExcept(player.PublicAddress, Context.ConnectionId).SendAsync("WinnerDeclared", player);
+        }
        
         //----Phrases----//
 
@@ -93,15 +98,12 @@ namespace IncohearentWebServer
                 GameMaster = user;
                 GMConnectionId = Context.ConnectionId;
             }
-            
-            //System.Diagnostics.Debug.WriteLine(gm.Username);
-            //System.Diagnostics.Debug.WriteLine(user.Username);
-            //System.Diagnostics.Debug.WriteLine(Context.ConnectionId);
 
             generated = restApi.GeneratePhoneticEquivalents();
             if (!string.IsNullOrEmpty(generated.PhraseGenerated) && !string.IsNullOrEmpty(generated.PhrasePhonetic))
             {
                 await Clients.GroupExcept(user.PublicAddress, GMConnectionId).SendAsync("PhrasesGenerated", generated.PhrasePhonetic);
+                await Clients.Client(GMConnectionId).SendAsync("ListAllPlayers", 0);
                 await Clients.Client(GMConnectionId).SendAsync("OriginalPhraseFetched", generated.PhraseGenerated);
             }
                            
