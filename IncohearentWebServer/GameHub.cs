@@ -78,7 +78,8 @@ namespace IncohearentWebServer
 
         public async Task DeclareWinner(User player)
         {
-            await Clients.GroupExcept(player.PublicAddress, Context.ConnectionId).SendAsync("WinnerDeclared", player);
+            //await Clients.GroupExcept(player.PublicAddress, Context.ConnectionId).SendAsync("WinnerDeclared", player);
+            await Clients.Groups(player.PublicAddress).SendAsync("WinnerDeclared", player);
         }
        
         //----Phrases----//
@@ -105,6 +106,7 @@ namespace IncohearentWebServer
                 await Clients.GroupExcept(user.PublicAddress, GMConnectionId).SendAsync("PhrasesGenerated", generated.PhrasePhonetic);
                 await Clients.Client(GMConnectionId).SendAsync("ListAllPlayers", 0);
                 await Clients.Client(GMConnectionId).SendAsync("OriginalPhraseFetched", generated.PhraseGenerated);
+                await Clients.Group(user.PublicAddress).SendAsync("SetupTimer", 0);
             }
                            
             else
