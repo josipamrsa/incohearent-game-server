@@ -102,7 +102,7 @@ namespace IncohearentWebServer.Data
         private Phrases GetPhrase()
         {
             // Dohvaća listu frazi s API-ja
-            var request = (HttpWebRequest)WebRequest.Create("https://randomwordgenerator.com/json/phrases.json");
+            var request = (HttpWebRequest)WebRequest.Create("https://raw.githubusercontent.com/josipamrsa/IncohearentServer/master/phrases.json");
             request.UserAgent = "curl";
             request.Method = "GET";
             var responseData = "";
