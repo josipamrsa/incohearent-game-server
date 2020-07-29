@@ -51,12 +51,6 @@ namespace IncohearentWebServer
             await Clients.Groups(user.PublicAddress).SendAsync("LeaveLobby", user);
         }
 
-        public async Task CheckForPlayers(User user)
-        {
-            System.Diagnostics.Debug.WriteLine(ConnectedUser.Id.Count);
-            await Clients.Client(Context.ConnectionId).SendAsync("NumberOfPlayers", ConnectedUser.Id.Count);
-        }
-
         //----Session----//
 
         public async Task StartGame(User user)
