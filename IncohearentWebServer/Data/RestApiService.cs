@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace IncohearentWebServer.Data
@@ -118,7 +119,6 @@ namespace IncohearentWebServer.Data
             Phrases randomPhrases = phraseList[rnd.Next(0, phraseList.Length)];
 
             return randomPhrases;
-
         }
     }
 }

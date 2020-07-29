@@ -51,13 +51,19 @@ namespace IncohearentWebServer
             await Clients.Groups(user.PublicAddress).SendAsync("LeaveLobby", user);
         }
 
+        public async Task CheckForPlayers(User user)
+        {
+            System.Diagnostics.Debug.WriteLine(ConnectedUser.Id.Count);
+            await Clients.Client(Context.ConnectionId).SendAsync("NumberOfPlayers", ConnectedUser.Id.Count);
+        }
+
         //----Session----//
 
         public async Task StartGame(User user)
-        {            
+        {
             // Onaj tko pokrene igru u Lobbyju postaje GameMaster
-
-            await Clients.Groups(user.PublicAddress).SendAsync("StartGame", user);
+           
+            await Clients.Groups(user.PublicAddress).SendAsync("StartGame", user);        
         }
 
         public async Task ConnectSession(User user)
@@ -119,6 +125,8 @@ namespace IncohearentWebServer
         {
             // Provjerava spojene korisnike
             ConnectedUser.Id.Add(Context.ConnectionId);
+            foreach (string id in ConnectedUser.Id)
+                Clients.Client(id).SendAsync("NumberOfPlayers", ConnectedUser.Id.Count);
             return base.OnConnectedAsync();
         }
 
@@ -126,6 +134,8 @@ namespace IncohearentWebServer
         {
             // Prati tko se odspojio
             ConnectedUser.Id.Remove(Context.ConnectionId);
+            foreach(string id in ConnectedUser.Id)
+                Clients.Client(id).SendAsync("NumberOfPlayers", ConnectedUser.Id.Count);
             return base.OnDisconnectedAsync(exception);
         }
     }
