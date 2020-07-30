@@ -11,6 +11,8 @@ namespace IncohearentWebServer
 {
     public static class ConnectedUser
     {
+        // Lista ID-ova spojenih korisnika
+
         public static List<string> Id = new List<string>();        
     }
   
@@ -70,7 +72,7 @@ namespace IncohearentWebServer
 
         public async Task DisconnectSession(User user)
         {
-            // Odspajanje igrača iz Sessiona - testirati
+            // Odspajanje igrača iz Sessiona
 
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, user.PublicAddress);
             await Clients.Groups(user.PublicAddress).SendAsync("DisconnectSession", user);            
@@ -78,6 +80,8 @@ namespace IncohearentWebServer
 
         public async Task DeclareWinner(User player)
         {
+            // Poruka - kojem igraču ide bod
+
             //await Clients.GroupExcept(player.PublicAddress, Context.ConnectionId).SendAsync("WinnerDeclared", player);
             await Clients.Groups(player.PublicAddress).SendAsync("WinnerDeclared", player);
         }
@@ -118,6 +122,7 @@ namespace IncohearentWebServer
         public override Task OnConnectedAsync()
         {
             // Provjerava spojene korisnike
+
             ConnectedUser.Id.Add(Context.ConnectionId);
             foreach (string id in ConnectedUser.Id)
                 Clients.Client(id).SendAsync("NumberOfPlayers", ConnectedUser.Id.Count);
@@ -127,6 +132,7 @@ namespace IncohearentWebServer
         public override Task OnDisconnectedAsync(Exception exception)
         {
             // Prati tko se odspojio
+
             ConnectedUser.Id.Remove(Context.ConnectionId);
             foreach(string id in ConnectedUser.Id)
                 Clients.Client(id).SendAsync("NumberOfPlayers", ConnectedUser.Id.Count);
